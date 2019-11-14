@@ -251,6 +251,13 @@ variable "tls_pfx_certificate_key_type" {
   default     = "RSA"
 }
 
+variable "virtual_network_resource_group_name" {
+  type        = string
+  description = "A resource group name of existing Azure Virtual Network to deploy into"
+  default     = ""
+}
+
+
 variable "vm_size_tier" {
   type        = string
   description = "The tier for the vms (must be 'Standard' or 'Basic') and must match with vm_size"

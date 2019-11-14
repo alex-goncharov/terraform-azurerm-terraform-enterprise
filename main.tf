@@ -1,9 +1,14 @@
 module "common" {
-  source          = "./modules/common"
-  install_id      = random_string.install_id.result
-  rg_name         = var.resource_group_name
-  vnet_name       = var.virtual_network_name
-  subnet_name     = var.subnet
+  source     = "./modules/common"
+  install_id = random_string.install_id.result
+  rg_name    = var.resource_group_name
+
+  vnet = {
+    name    = var.virtual_network_name
+    rg_name = var.virtual_network_resource_group_name
+  }
+  subnet_name = var.subnet
+
   resource_prefix = var.resource_prefix
 
   key_type = var.tls_pfx_certificate_key_type
