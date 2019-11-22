@@ -257,6 +257,22 @@ variable "virtual_network_resource_group_name" {
   default     = ""
 }
 
+variable "internal" {
+  type        = bool
+  description = "Should terraform service be internal or public"
+  default     = false
+}
+
+# TFE is using k8s under the hood. K8s requires an LB in front of its master nodes.
+# Due to Azure internal LB limitation (it does not SNAT) LB has to be public or
+# master-lb-master traffic has to be SNATed somehow. In Azure this can only be
+# done through public IP use.
+#
+variable "public_ip" {
+  type        = string
+  description = "A public ip address that this installation should accessible from."
+  default     = ""
+}
 
 variable "vm_size_tier" {
   type        = string

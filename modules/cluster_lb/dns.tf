@@ -8,7 +8,7 @@ resource "azurerm_dns_a_record" "api" {
   zone_name           = data.azurerm_dns_zone.selected.name
   resource_group_name = var.dns["rg_name"]
   ttl                 = var.dns["ttl"]
-  records             = [azurerm_public_ip.azlb.ip_address]
+  records             = var.internal_lb ? [var.public_ip] : azurerm_public_ip.azlb.*.ip_address
 }
 
 resource "azurerm_dns_a_record" "application" {
@@ -16,6 +16,5 @@ resource "azurerm_dns_a_record" "application" {
   zone_name           = data.azurerm_dns_zone.selected.name
   resource_group_name = var.dns["rg_name"]
   ttl                 = var.dns["ttl"]
-  records             = [azurerm_public_ip.azlb.ip_address]
+  records             = var.internal_lb ? [var.public_ip] : azurerm_public_ip.azlb.*.ip_address
 }
-

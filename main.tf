@@ -33,6 +33,9 @@ module "cluster_lb" {
   rg_name         = module.common.rg_name
   location        = module.common.rg_location
   resource_prefix = var.resource_prefix
+  internal_lb     = var.internal
+  public_ip       = var.public_ip
+  subnet_id       = module.common.app_subnet_id
 
   dns = {
     domain  = var.domain

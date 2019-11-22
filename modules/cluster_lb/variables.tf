@@ -35,6 +35,29 @@ variable "resource_prefix" {
 }
 
 # ============================================================ OPTIONAL
+variable "internal_lb" {
+  type        = bool
+  description = "Create internal lb"
+  default     = false
+}
+
+# TFE is using k8s under the hood. K8s requires an LB in front of its master nodes.
+# Due to Azure internal LB limitation (it does not SNAT) LB has to be public or
+# master-lb-master traffic has to be SNATed somehow. In Azure this can only be
+# done through public IP use.
+#
+variable "public_ip" {
+  type        = string
+  description = "A public ip address that this installation should accessible from."
+  default     = ""
+}
+
+variable "subnet_id" {
+  type        = string
+  description = "Subnet to put internal load balancer into"
+  default     = ""
+}
+
 variable "lb_probe_interval" {
   type        = number
   description = "The interval for the Loadbalancer healthcheck probe."

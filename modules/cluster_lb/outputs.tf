@@ -4,12 +4,17 @@ output "backend_pool_id" {
 }
 
 output "public_ip_address" {
-  value       = azurerm_public_ip.azlb.*.ip_address[0]
+  value       = var.internal_lb ? [var.public_ip] : azurerm_public_ip.azlb.*.ip_address
   description = "The public ip address of this loadbalancer"
 }
 
+output "private_ip_address" {
+  value       = azurerm_lb.azlb.private_ip_addresses
+  description = "The private ip address of this loadbalancer"
+}
+
 output "public_ip_id" {
-  value       = azurerm_public_ip.azlb.*.id[0]
+  value       = var.internal_lb ? "" : azurerm_public_ip.azlb.*.id[0]
   description = "The id of the public ip resource in Azure of this loadbalancer"
 }
 

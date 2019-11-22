@@ -1,4 +1,5 @@
 resource "azurerm_public_ip" "azlb" {
+  count               = var.internal_lb ? 0 : 1
   name                = "${local.prefix}-publicIP"
   location            = var.location
   resource_group_name = var.rg_name
@@ -14,8 +15,9 @@ resource "azurerm_lb" "azlb" {
 
   frontend_ip_configuration {
     name                          = local.frontend
-    public_ip_address_id          = azurerm_public_ip.azlb.id
-    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = var.internal_lb ? null : azurerm_public_ip.azlb[0].id
+    subnet_id                     = var.internal_lb ? var.subnet_id : null
+    private_ip_address_allocation = var.internal_lb ? null : "Static"
   }
 }
 
