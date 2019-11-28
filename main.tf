@@ -84,7 +84,6 @@ module "configs" {
   }
 
   azure_es = {
-    enable       = var.postgresql_database == "" ? true : false
     account_name = var.azure_es_account_name
     account_key  = var.azure_es_account_key
     container    = var.azure_es_container
@@ -98,19 +97,17 @@ module "configs" {
 }
 
 module "primaries" {
-  source            = "./modules/primaries"
-  install_id        = random_string.install_id.result
-  rg_name           = module.common.rg_name
-  location          = module.common.rg_location
-  subnet_id         = module.common.app_subnet_id
-  resource_prefix   = var.resource_prefix
-  external_services = var.postgresql_database == "" ? "False" : "True"
-
+  source                  = "./modules/primaries"
+  install_id              = random_string.install_id.result
+  rg_name                 = module.common.rg_name
+  location                = module.common.rg_location
+  subnet_id               = module.common.app_subnet_id
+  resource_prefix         = var.resource_prefix
   username                = var.ssh_user
   os_disk_size            = var.os_disk_size
   cluster_backend_pool_id = module.cluster_lb.backend_pool_id
   storage_image           = var.storage_image
-  cloud_init_data_list    = module.configs.primary_cloud_init_list
+  cloud_init_data         = module.configs.primary_cloud_init_list
 
   key_vault = {
     id       = module.common.vault_id

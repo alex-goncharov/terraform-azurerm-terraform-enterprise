@@ -35,9 +35,9 @@ variable "cluster_backend_pool_id" {
   description = "The id of the backend pool for the cluster loadbalancer."
 }
 
-variable "cloud_init_data_list" {
+variable "cloud_init_data" {
   type        = list(string)
-  description = "List of rendered cloud-init templates to pass to the vms."
+  description = "Rendered cloud-init templates to pass to the vms."
 }
 
 variable "storage_image" {
@@ -79,11 +79,6 @@ variable "resource_prefix" {
   description = "Prefix name for resources"
 }
 
-variable "external_services" {
-  type        = string
-  description = "Boolean string for whether or not to install in Internal Production Mode or External Services Mode"
-}
-
 # ============================================================ MISC
 
 locals {
@@ -92,7 +87,5 @@ locals {
   ip_conf_name = "${local.prefix}-ip-conf"
 
   ssh_config_path = "${path.root}/work/ssh_config"
-
-  install_type = var.external_services == "True" ? "es" : "ipm"
 }
 

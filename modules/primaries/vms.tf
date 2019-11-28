@@ -2,14 +2,12 @@ resource "azurerm_virtual_machine" "primary" {
   # The number of primaries must be hard coded to 3 when Internal Production Mode
   # is selected. Currently, that mode does not support scaling. In other modes, the
   # cluster can be scaled according the primary_count variable.
-  count = local.install_type == "ipm" ? 3 : var.vm["count"]
-
-  name                         = "${local.prefix}-${count.index}"
-  resource_group_name          = var.rg_name
-  location                     = var.location
-  vm_size                      = var.vm["size"]
-  primary_network_interface_id = azurerm_network_interface.primary[count.index].id
-
+  count                         = length(var.cloud_init_data)
+  name                          = "${local.prefix}-${count.index}"
+  resource_group_name           = var.rg_name
+  location                      = var.location
+  vm_size                       = var.vm["size"]
+  primary_network_interface_id  = azurerm_network_interface.primary[count.index].id
   network_interface_ids         = [azurerm_network_interface.primary[count.index].id]
   delete_os_disk_on_termination = true
 
@@ -25,7 +23,7 @@ resource "azurerm_virtual_machine" "primary" {
   os_profile {
     computer_name  = "${local.prefix}-${count.index}"
     admin_username = var.username
-    custom_data    = element(var.cloud_init_data_list, count.index)
+    custom_data    = var.cloud_init_data[count.index]
   }
 
   os_profile_secrets {
