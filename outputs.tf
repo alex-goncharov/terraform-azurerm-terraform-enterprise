@@ -23,18 +23,12 @@ output "installer_dashboard_password" {
   description = "Generated password to unlock the installer dashboard."
 }
 
-output "primary_public_ip" {
-  value       = element(module.primaries.public_ips, 0)
-  description = "The public IP address of the first primary node created."
-}
-
-output "ssh_config_file" {
-  value       = module.primaries.ssh_config_path
-  description = "Path to ssh_config file for command: `ssh -F $(terraform state show <terraform_parent_modules>.module.<module_name>.module.primaries.local_file.ssh_config | grep filename | awk '{print $3}') default`"
+output "lb_private_ip" {
+  value       = module.cluster_lb.private_ip_address
+  description = "Cluster LB private IP address"
 }
 
 output "ssh_private_key" {
   value       = module.common.ssh_private_key_path
   description = "Path to the private key used for ssh authorization."
 }
-
