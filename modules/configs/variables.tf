@@ -75,12 +75,11 @@ variable "postgresql" {
 
 variable "azure_es" {
   type = object({
-    enable       = bool
     account_name = string
     account_key  = string
     container    = string
   })
-  description = "Expects keys: [enable, account_name, account_key, container]"
+  description = "Expects keys: [account_name, account_key, container]"
 }
 
 variable "airgap" {
@@ -117,8 +116,7 @@ variable "ca_bundle_url" {
 # === Misc
 
 locals {
-  install_mode = var.azure_es["enable"] == "True" ? "es" : ""
-  is_airgap    = var.airgap["enable"] == "True" ? "True" : "False"
+  installation_type = var.postgresql.database != "" && var.azure_es.account_name != "" ? "production" : "poc"
 }
 
 resource "random_pet" "console_password" {
@@ -131,10 +129,8 @@ resource "random_string" "bootstrap_token_id" {
   special = false
 }
 
-resource "random_string" "default_enc_password" {
-  length  = 32
-  upper   = true
-  special = false
+resource "random_pet" "default_enc_password" {
+  length = 4
 }
 
 resource "random_string" "setup_token" {

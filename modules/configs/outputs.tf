@@ -13,3 +13,7 @@ output "console_password" {
   description = "The generated password for the admin console."
 }
 
+output "encryption_password" {
+  value       = local.encryption_password
+  description = "The Encryption Password is used to protect the vault unseal key and root token when the internal Vault is used."
+}
