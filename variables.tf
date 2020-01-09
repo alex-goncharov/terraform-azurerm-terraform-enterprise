@@ -138,9 +138,9 @@ variable "iact_subnet_time_limit" {
   default     = ""
 }
 
-variable "import_key" {
+variable "ssh_key" {
   type        = string
-  description = "An additional ssh pub key to import to all machines"
+  description = "SSH public to provision nodes with"
   default     = ""
 }
 

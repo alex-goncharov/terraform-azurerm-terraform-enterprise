@@ -28,16 +28,6 @@ output "app_subnet_name" {
   description = "The name of the Subnet within the Azure Virtual Network to use."
 }
 
-output "ssh_public_key" {
-  value       = tls_private_key.default.public_key_openssh
-  description = "The value of the generated ssh public key to use for instance login."
-}
-
-output "ssh_private_key_path" {
-  value       = local.private_key_filename
-  description = "The path to the associated private key file to the public key used for instance login."
-}
-
 output "vault_id" {
   value       = data.azurerm_key_vault.selected.id
   description = "The id of the Azure Key Vault to use."

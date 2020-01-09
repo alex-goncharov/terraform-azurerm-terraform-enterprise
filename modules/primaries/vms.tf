@@ -15,7 +15,7 @@ resource "azurerm_virtual_machine" "primary" {
     disable_password_authentication = true
 
     ssh_keys {
-      key_data = var.ssh["public_key"]
+      key_data = var.ssh_key
       path     = "/home/${var.username}/.ssh/authorized_keys"
     }
   }

@@ -64,7 +64,6 @@ module "configs" {
   assistant_port       = local.assistant_port
   http_proxy_url       = var.http_proxy_url
   installer_url        = var.installer_url
-  import_key           = var.import_key
   ca_bundle_url        = var.ca_bundle_url
   weave_cidr           = var.weave_cidr
   repl_cidr            = var.repl_cidr
@@ -108,16 +107,13 @@ module "primaries" {
   cluster_backend_pool_id = module.cluster_lb.backend_pool_id
   storage_image           = var.storage_image
   cloud_init_data         = module.configs.primary_cloud_init_list
+  ssh_key                 = var.ssh_key
 
   key_vault = {
     id       = module.common.vault_id
     cert_uri = module.common.cert_secret_id
   }
 
-  ssh = {
-    public_key       = module.common.ssh_public_key
-    private_key_path = module.common.ssh_private_key_path
-  }
 
   # We are hardcoding the primary count to 3 for the initial release for stability.
   vm = {
@@ -133,7 +129,7 @@ module "secondaries" {
   location        = module.common.rg_location
   subnet_id       = module.common.app_subnet_id
   storage_image   = var.storage_image
-  ssh_public_key  = module.common.ssh_public_key
+  ssh_key         = var.ssh_key
   cloud_init_data = module.configs.secondary_cloud_init
   username        = var.ssh_user
   resource_prefix = var.resource_prefix

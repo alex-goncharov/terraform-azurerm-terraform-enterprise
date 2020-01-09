@@ -63,7 +63,6 @@ data "template_file" "cloud_config" {
     proxy_url            = var.http_proxy_url
     ptfe_url             = var.installer_url
     role_id              = count.index
-    import_key           = var.import_key
     distro               = var.distribution
     aaa_proxy_b64        = local.aaa_proxy
     proxy_b64            = local.proxy_sh
@@ -99,7 +98,6 @@ data "template_file" "cloud_config_secondary" {
   vars = {
     proxy_url            = var.http_proxy_url
     ptfe_url             = var.installer_url
-    import_key           = var.import_key
     bootstrap_token      = "${random_string.bootstrap_token_id.result}.${random_string.bootstrap_token_suffix.result}"
     cluster_api_endpoint = "${var.cluster_api_endpoint}:6443"
     assistant_host       = "http://${var.cluster_api_endpoint}:${var.assistant_port}"

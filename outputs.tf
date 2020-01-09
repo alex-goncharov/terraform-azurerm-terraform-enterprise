@@ -27,8 +27,3 @@ output "lb_private_ip" {
   value       = module.cluster_lb.private_ip_address
   description = "Cluster LB private IP address"
 }
-
-output "ssh_private_key" {
-  value       = module.common.ssh_private_key_path
-  description = "Path to the private key used for ssh authorization."
-}

@@ -20,9 +20,9 @@ variable "subnet_id" {
   description = "The Azure Subnet to build into"
 }
 
-variable "ssh_public_key" {
+variable "ssh_key" {
   type        = string
-  description = "The ssh public key to give to all vms in the scale-set for the local administrator account."
+  description = "SSH public to provision nodes with"
 }
 
 variable "username" {

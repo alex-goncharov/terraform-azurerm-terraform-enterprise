@@ -58,12 +58,9 @@ variable "vm" {
   description = "Expects keys: [count, size]"
 }
 
-variable "ssh" {
-  type = object({
-    public_key       = string
-    private_key_path = string
-  })
-  description = "Expects keys: [public_key, private_key_path]"
+variable "ssh_key" {
+  type        = string
+  description = "SSH public to provision nodes with"
 }
 
 variable "key_vault" {
@@ -85,7 +82,5 @@ locals {
   prefix = "${var.resource_prefix}-${var.install_id}-primary"
 
   ip_conf_name = "${local.prefix}-ip-conf"
-
-  ssh_config_path = "${path.root}/work/ssh_config"
 }
 

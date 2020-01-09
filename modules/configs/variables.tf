@@ -49,11 +49,6 @@ variable "installer_url" {
   description = "URL to the cluster installer tool"
 }
 
-variable "import_key" {
-  type        = string
-  description = "An additional ssh pub key to import to all machines"
-}
-
 variable "iact" {
   type = object({
     subnet_list       = list(string)

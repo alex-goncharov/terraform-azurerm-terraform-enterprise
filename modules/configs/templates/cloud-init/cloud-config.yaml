@@ -1,8 +1,4 @@
 #cloud-config
-%{ if import_key != "" ~}
-ssh_import_id:
-- "${import_key}"
-%{ endif }
 write_files:
 
 - path: /etc/ptfe/role

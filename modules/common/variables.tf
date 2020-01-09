@@ -62,9 +62,7 @@ variable "key_size" {
 locals {
   # path.root for remote modules to work properly.
 
-  ssh_public_key_path     = "${path.root}/work"
   key_name                = "${var.resource_prefix}-${var.install_id}"
-  private_key_filename    = "${local.ssh_public_key_path}/${local.key_name}.priv"
   prefix                  = "${var.resource_prefix}-${var.install_id}"
   rendered_vnet_rg_name   = coalesce(var.vnet["rg_name"], var.rg_name)
   rendered_kv_rg_name     = coalesce(var.key_vault["rg_name"], var.rg_name)
