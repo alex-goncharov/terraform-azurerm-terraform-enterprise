@@ -39,7 +39,7 @@ variable "tls" {
     pfx_cert    = string
     pfx_cert_pw = string
   })
-  description = "Expects keys: [pfx_cert, pfx_cert_pw] (the path to a pfx certificate for the dns zone, the password for that certificate)"
+  description = "Expects keys: [pfx_cert, pfx_cert_pw] (pfx encoded certificate, the password for that certificate)"
 }
 
 variable "resource_prefix" {

@@ -27,7 +27,7 @@ variable "subnet" {
 
 variable "tls_pfx_certificate" {
   type        = string
-  description = "The path to a PFX certificate for front end SSL communication."
+  description = "PFX encoded certificate for front end SSL communication."
 }
 
 variable "tls_pfx_certificate_password" {

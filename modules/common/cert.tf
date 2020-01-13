@@ -3,8 +3,8 @@ resource "azurerm_key_vault_certificate" "ptfe" {
   key_vault_id = data.azurerm_key_vault.selected.id
 
   certificate {
-    contents = filebase64(var.tls["pfx_cert"])
-    password = var.tls["pfx_cert_pw"]
+    contents = var.tls.pfx_cert
+    password = var.tls.pfx_cert_pw
   }
 
   certificate_policy {
