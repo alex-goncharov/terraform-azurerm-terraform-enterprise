@@ -5,9 +5,9 @@ variable "primary_count" {
   description = "The count of primary instances being created."
 }
 
-variable "license_file" {
+variable "license_b64" {
   type        = string
-  description = "Path to license file for the application"
+  description = "Replicated base64 encoded license for the application"
 }
 
 variable "cluster_endpoint" {

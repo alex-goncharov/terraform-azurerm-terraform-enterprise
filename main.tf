@@ -55,7 +55,7 @@ module "cluster_lb" {
 module "configs" {
   source               = "./modules/configs"
   primary_count        = "3"
-  license_file         = var.license_file
+  license_b64          = var.license_b64
   cluster_endpoint     = module.cluster_lb.app_endpoint_dns
   cluster_api_endpoint = module.cluster_lb.lb_endpoint_dns
   distribution         = var.distribution

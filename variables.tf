@@ -10,9 +10,9 @@ variable "key_vault_name" {
   description = "The name of an existing key vault to use for certificate generation."
 }
 
-variable "license_file" {
+variable "license_b64" {
   type        = string
-  description = "Path to the Replicated license file."
+  description = "Replicated base64 encoded license."
 }
 
 variable "resource_group_name" {

@@ -67,7 +67,7 @@ data "template_file" "cloud_config" {
     aaa_proxy_b64        = local.aaa_proxy
     proxy_b64            = local.proxy_sh
     bootstrap_token      = "${random_string.bootstrap_token_id.result}.${random_string.bootstrap_token_suffix.result}"
-    license_b64          = filebase64(var.license_file)
+    license_b64          = var.license_b64
     rptfeconf            = local.replicated_ptfe_config
     replconf             = local.replicated_config
     install_ptfe_sh      = filebase64("${path.module}/files/install-ptfe.sh")
