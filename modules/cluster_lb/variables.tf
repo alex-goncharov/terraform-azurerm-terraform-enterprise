@@ -70,6 +70,16 @@ variable "lb_probe_unhealthy_threshold" {
   default     = 2
 }
 
+variable "snat_lb" {
+  type = object({
+    id                             = string
+    frontend_ip_configuration_name = string
+  })
+
+  description = "Use this loadbalancer for outgoing SNAT"
+  default     = null
+}
+
 # ============================================================ MISC
 
 # LB resource names

@@ -31,7 +31,7 @@ variable "username" {
 }
 
 variable "cluster_backend_pool_id" {
-  type        = string
+  type        = list(string)
   description = "The id of the backend pool for the cluster loadbalancer."
 }
 
