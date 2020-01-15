@@ -1,8 +1,5 @@
-output "backend_pool_ids" {
-  value = concat(
-    [azurerm_lb_backend_address_pool.azlb.id],
-    var.snat_lb == null ? [] : [azurerm_lb_backend_address_pool.snat.id]
-  )
+output "backend_pool_id" {
+  value       = azurerm_lb_backend_address_pool.azlb.id
   description = "The id of the backend pool for this loadbalancer."
 }
 

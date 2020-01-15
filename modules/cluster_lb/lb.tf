@@ -17,7 +17,8 @@ resource "azurerm_lb" "azlb" {
     name                          = local.frontend
     public_ip_address_id          = var.internal_lb ? null : azurerm_public_ip.azlb[0].id
     subnet_id                     = var.internal_lb ? var.subnet_id : null
-    private_ip_address_allocation = var.internal_lb ? null : "Static"
+    private_ip_address            = var.private_ip == "" ? null : var.private_ip
+    private_ip_address_allocation = var.internal_lb && var.private_ip != "" ? null : "Static"
   }
 }
 

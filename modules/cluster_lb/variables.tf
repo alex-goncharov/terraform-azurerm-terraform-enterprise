@@ -52,6 +52,13 @@ variable "public_ip" {
   default     = ""
 }
 
+# Sometimes it is required to pre allocate private IP for private lb
+variable "private_ip" {
+  type        = string
+  description = "Private IP address for static IP allocation on LB"
+  default     = ""
+}
+
 variable "subnet_id" {
   type        = string
   description = "Subnet to put internal load balancer into"

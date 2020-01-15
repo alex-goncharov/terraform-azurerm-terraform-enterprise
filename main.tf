@@ -35,6 +35,7 @@ module "cluster_lb" {
   resource_prefix = var.resource_prefix
   internal_lb     = var.internal
   public_ip       = var.public_ip
+  private_ip      = var.lb_private_ip
   subnet_id       = module.common.app_subnet_id
 
   dns = {

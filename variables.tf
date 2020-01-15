@@ -274,6 +274,13 @@ variable "public_ip" {
   default     = ""
 }
 
+# Sometimes it is required to pre allocate private IP for private lb
+variable "lb_private_ip" {
+  type        = string
+  description = "Private IP address for static IP allocation on LB"
+  default     = ""
+}
+
 variable "snat_lb" {
   type = object({
     id                             = string
