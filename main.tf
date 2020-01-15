@@ -53,9 +53,10 @@ module "cluster_lb" {
 }
 
 # We are hardcoding the primary count to 3 for the initial release for stability.
+
 module "configs" {
   source               = "./modules/configs"
-  primary_count        = "3"
+  primaries            = toset(["0", "1", "2"])
   license_b64          = var.license_b64
   cluster_endpoint     = module.cluster_lb.app_endpoint_dns
   cluster_api_endpoint = module.cluster_lb.lb_endpoint_dns
@@ -107,20 +108,15 @@ module "primaries" {
   os_disk_size            = var.os_disk_size
   cluster_backend_pool_id = module.cluster_lb.backend_pool_id
   storage_image           = var.storage_image
-  cloud_init_data         = module.configs.primary_cloud_init_list
+  cloud_init_data         = module.configs.primary_cloud_inits
   ssh_key                 = var.ssh_key
+  vm_size                 = var.primary_vm_size
 
   key_vault = {
     id       = module.common.vault_id
     cert_uri = module.common.cert_secret_id
   }
 
-
-  # We are hardcoding the primary count to 3 for the initial release for stability.
-  vm = {
-    count = 3
-    size  = var.primary_vm_size
-  }
 }
 
 module "secondaries" {

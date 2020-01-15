@@ -1,6 +1,9 @@
-output "primary_cloud_init_list" {
-  value       = data.template_cloudinit_config.config.*.rendered
-  description = "List of rendered cloud-init templates to pass to primary instances."
+output "primary_cloud_inits" {
+  value = {
+    for i in var.primaries :
+    i => data.template_cloudinit_config.config[i].rendered
+  }
+  description = "map(string) of rendered cloud-init templates to pass to primary instances."
 }
 
 output "secondary_cloud_init" {

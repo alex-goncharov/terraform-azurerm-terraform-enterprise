@@ -1,5 +1,8 @@
 output "network_interfaces" {
-  value       = azurerm_network_interface.primary.*.id
+  value = {
+    for k, v in var.cloud_init_data :
+    k => azurerm_network_interface.primary[k].id
+  }
   description = "List of ids of Azure Network Interface objects tied to the primary vms."
 }
 

@@ -53,7 +53,7 @@ locals {
 }
 
 data "template_file" "cloud_config" {
-  count    = var.primary_count
+  for_each = var.primaries
   template = file("${path.module}/templates/cloud-init/cloud-config.yaml")
 
   vars = {
@@ -62,7 +62,7 @@ data "template_file" "cloud_config" {
     setup_token          = random_string.setup_token.result
     proxy_url            = var.http_proxy_url
     ptfe_url             = var.installer_url
-    role_id              = count.index
+    role_id              = each.key
     distro               = var.distribution
     aaa_proxy_b64        = local.aaa_proxy
     proxy_b64            = local.proxy_sh
@@ -71,7 +71,7 @@ data "template_file" "cloud_config" {
     rptfeconf            = local.replicated_ptfe_config
     replconf             = local.replicated_config
     install_ptfe_sh      = filebase64("${path.module}/files/install-ptfe.sh")
-    role                 = count.index == 0 ? "main" : "primary"
+    role                 = each.key == "0" ? "main" : "primary"
     cluster_api_endpoint = "${var.cluster_api_endpoint}:6443"
     assistant_host       = "http://${var.cluster_api_endpoint}:${var.assistant_port}"
     cert_thumbprint      = var.cert_thumbprint
@@ -82,13 +82,13 @@ data "template_file" "cloud_config" {
 }
 
 data "template_cloudinit_config" "config" {
-  count         = var.primary_count
+  for_each      = var.primaries
   gzip          = true
   base64_encode = true
 
   part {
     content_type = "text/cloud-config"
-    content      = data.template_file.cloud_config[count.index].rendered
+    content      = data.template_file.cloud_config[each.key].rendered
   }
 }
 

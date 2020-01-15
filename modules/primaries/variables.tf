@@ -36,7 +36,7 @@ variable "cluster_backend_pool_id" {
 }
 
 variable "cloud_init_data" {
-  type        = list(string)
+  type        = map(string)
   description = "Rendered cloud-init templates to pass to the vms."
 }
 
@@ -50,12 +50,10 @@ variable "storage_image" {
   description = "Expects keys: [publisher, offer, sku, version]"
 }
 
-variable "vm" {
-  type = object({
-    count = number
-    size  = string
-  })
-  description = "Expects keys: [count, size]"
+variable "vm_size" {
+  type        = string
+  default     = "Standard_D4s_v3"
+  description = "The Azure VM Size to use."
 }
 
 variable "ssh_key" {

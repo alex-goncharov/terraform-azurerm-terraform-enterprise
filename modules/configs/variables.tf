@@ -1,7 +1,7 @@
 # === Required
 
-variable "primary_count" {
-  type        = number
+variable "primaries" {
+  type        = set(string)
   description = "The count of primary instances being created."
 }
 
