@@ -27,3 +27,12 @@ output "lb_private_ip" {
   value       = module.cluster_lb.private_ip_address
   description = "Cluster LB private IP address"
 }
+
+output "primary_nic_ids" {
+  value = module.primaries.network_interfaces
+}
+
+output "primary_nic_ip_conf_name" {
+  value       = module.primaries.ip_conf_name
+  description = "The name of the IP Configuration object for the Azure Network Interfaces for the primary vms."
+}

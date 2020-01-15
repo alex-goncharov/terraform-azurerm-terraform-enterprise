@@ -281,16 +281,6 @@ variable "lb_private_ip" {
   default     = ""
 }
 
-variable "snat_lb" {
-  type = object({
-    id                             = string
-    frontend_ip_configuration_name = string
-  })
-
-  description = "Use this loadbalancer for outgoing SNAT"
-  default     = null
-}
-
 variable "vm_size_tier" {
   type        = string
   description = "The tier for the vms (must be 'Standard' or 'Basic') and must match with vm_size"
